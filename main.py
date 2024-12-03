@@ -10,9 +10,3 @@ from sklearn.metrics import accuracy_score, confusion_matrix, classification_rep
 from imblearn.over_sampling import SMOTE
 from xgboost import XGBRFClassifier
 
-x=[2,3,4]
-y=[1,2,3]
-
-
-plt.plot(x,y)
-plt.show()
