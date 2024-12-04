@@ -110,3 +110,8 @@ y = df["Churn"]
 
 X_train, X_test, y_train, y_test  = train_test_split(X, y , test_size=0.2 , random_state=42)
 
+
+#Synthetic Minority Oversampling TEchnique (SMOTE)
+smote = SMOTE()
+X_train_smote, y_train_smote = smote.fit_resample(X_train, y_train)
+
