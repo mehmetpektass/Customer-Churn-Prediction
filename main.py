@@ -17,10 +17,10 @@ df = pd.read_csv("WA_Fn-UseC_-Telco-Customer-Churn.csv")
 
 # Check the data
 df.shape
-df.head(2)
+df.head()
 df.info()
 
-# dropping customerID column as this is not required for modelling
+# Dropping customerID column as this is not required for modelling
 df = df.drop(columns=["customerID"])
 
 # printing the unique values in all the columns
@@ -29,3 +29,12 @@ for col in df.columns:
     if col not in numerical_features_list:
         print(col, df[col].unique())
         print("-"*50)
+        
+#Deleting non values of total charges
+df[df["TotalCharges"] == " "]
+
+#Converting object to float for total charges
+df["TotalCharges"] = df["TotalCharges"].replace({" " : "0.0"})
+
+df["TotalCharges"] = df["TotalCharges"].astype(float)
+
