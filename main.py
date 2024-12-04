@@ -9,4 +9,23 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from imblearn.over_sampling import SMOTE
 from xgboost import XGBRFClassifier
+import pickle
 
+# Load the data to a pandas dataframe
+
+df = pd.read_csv("WA_Fn-UseC_-Telco-Customer-Churn.csv")
+
+# Check the data
+df.shape
+df.head(2)
+df.info()
+
+# dropping customerID column as this is not required for modelling
+df = df.drop(columns=["customerID"])
+
+# printing the unique values in all the columns
+numerical_features_list = ["tenure", "MonthlyCharges", "TotalCharges"]
+for col in df.columns:
+    if col not in numerical_features_list:
+        print(col, df[col].unique())
+        print("-"*50)
