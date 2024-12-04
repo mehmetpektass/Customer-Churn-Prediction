@@ -76,3 +76,14 @@ plt.figure(figsize=(8,4))
 sns.heatmap(df[["tenure", "MonthlyCharges", "TotalCharges"]].corr(), annot=True, cmap="coolwarm", fmt=".2f")
 plt.title("Correlation Heatmap")
 plt.show()
+
+
+#Countplot for categorical columns
+object_cols = df.select_dtypes(include="object").columns.tolist()
+object_cols = ["SeniorCitizen"] + object_cols
+
+for col in object_cols:
+    plt.figure(figsize=(5,3))
+    sns.countplot(x=df[col])
+    plt.title(f"Count Plot of {col}")
+    plt.show()
