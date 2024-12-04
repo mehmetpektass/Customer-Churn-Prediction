@@ -8,20 +8,22 @@ from sklearn.tree import DecisionTreeClassifier
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
 from imblearn.over_sampling import SMOTE
-from xgboost import XGBRFClassifier
+from xgboost import XGBClassifier
 import pickle
 
 # Load the data to a pandas dataframe
-
 df = pd.read_csv("WA_Fn-UseC_-Telco-Customer-Churn.csv")
+
 
 # Check the data
 df.shape
 df.head()
 df.info()
 
+
 # Dropping customerID column as this is not required for modelling
 df = df.drop(columns=["customerID"])
+
 
 # printing the unique values in all the columns
 numerical_features_list = ["tenure", "MonthlyCharges", "TotalCharges"]
@@ -30,12 +32,15 @@ for col in df.columns:
         print(col, df[col].unique())
         print("-"*50)
         
+        
 #Deleting non values of total charges
 df[df["TotalCharges"] == " "]
+
 
 #Converting object to float for total charges
 df["TotalCharges"] = df["TotalCharges"].replace({" " : "0.0"})
 df["TotalCharges"] = df["TotalCharges"].astype(float)
+
 
 #Checking the class distribution of target column
 df.describe()
@@ -115,3 +120,21 @@ X_train, X_test, y_train, y_test  = train_test_split(X, y , test_size=0.2 , rand
 smote = SMOTE()
 X_train_smote, y_train_smote = smote.fit_resample(X_train, y_train)
 
+
+#Training with default hyperparameters
+
+
+models = {
+    "Desicion Tree": DecisionTreeClassifier(random_state=42),
+    "Random Forest": RandomForestClassifier(random_state=42),
+    "XGBoost": XGBClassifier(random_state=42)
+}
+
+cv_scores = {}
+
+for model_name, model in models.items():
+    print(f"Training {model_name} with default parameters")
+    scores = cross_val_score(model, X_train_smote, y_train_smote, cv = 10 , scoring="accuracy")
+    cv_scores[model_name] = scores
+    print(f"{model_name} cross-validation accuracy: {np.mean(scores):.2f}")
+    print("-"*70)
