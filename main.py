@@ -38,7 +38,6 @@ df["TotalCharges"] = df["TotalCharges"].replace({" " : "0.0"})
 df["TotalCharges"] = df["TotalCharges"].astype(float)
 
 #Checking the class distribution of target column
-
 df.describe()
 
 def plot_histogram(df, column_name):
@@ -55,6 +54,18 @@ def plot_histogram(df, column_name):
     plt.legend()
     plt.show()
     
-
 plot_histogram(df, "tenure")
 plot_histogram(df, "TotalCharges")
+
+
+#Box plot for numerical features
+def plot_boxplot(df, column_name):
+    plt.figure(figsize=(5,3))
+    sns.boxplot(y=df[column_name])
+    plt.title(f"Box Plot of {column_name}")
+    plt.ylabel(column_name)
+    plt.show()
+    
+plot_boxplot(df, "tenure") 
+plot_boxplot(df, "MonthlyCharges")   
+plot_boxplot(df, "TotalCharges")
