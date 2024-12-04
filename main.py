@@ -149,3 +149,18 @@ y_test_pred = rfc.predict(X_test)
 print("Accuracy Score:\n", accuracy_score(y_test, y_test_pred))
 print("Confsuion Matrix:\n", confusion_matrix(y_test, y_test_pred))
 print("Classification Report:\n", classification_report(y_test, y_test_pred))
+
+
+#Save the trained model as a pickle file
+model_data= {"model": rfc , "features_names":X.columns.tolist()}
+
+with open("customer_churn_model.pkl" , "wb") as f:
+    pickle.dump(model_data , f)
+    
+
+#Load teh saved model and the feature names 
+with open("customer_churn_model.pkl" , "rb") as f:
+    model_data = pickle.load(f)
+
+loaded_model = model_data["model"]
+features_nams = model_data["features_names"]   
