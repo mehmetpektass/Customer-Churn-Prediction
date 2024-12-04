@@ -78,7 +78,7 @@ plt.title("Correlation Heatmap")
 plt.show()
 
 
-#Countplot for categorical columns
+#Countplot for categorical columns and converting a column
 object_cols = df.select_dtypes(include="object").columns.tolist()
 object_cols = ["SeniorCitizen"] + object_cols
 
@@ -87,3 +87,21 @@ for col in object_cols:
     sns.countplot(x=df[col])
     plt.title(f"Count Plot of {col}")
     plt.show()
+    
+df["Churn"] = df["Churn"].replace({"Yes": 1 , "No":0})
+
+
+#Label encoding of categorical fetaures
+object_columns = df.select_dtypes(include="object").columns.tolist()
+
+encoders = {}
+for column in object_columns:
+    label_encoder = LabelEncoder()
+    df[column] = label_encoder.fit_transform(df[column])
+    encoders[column] = label_encoder
+
+with open("encoders.pkl" , "wb") as f:
+    pickle.dump(encoders, f)
+
+
+df.head(5)
