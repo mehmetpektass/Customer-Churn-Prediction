@@ -122,8 +122,6 @@ X_train_smote, y_train_smote = smote.fit_resample(X_train, y_train)
 
 
 #Training with default hyperparameters
-
-
 models = {
     "Desicion Tree": DecisionTreeClassifier(random_state=42),
     "Random Forest": RandomForestClassifier(random_state=42),
@@ -138,3 +136,16 @@ for model_name, model in models.items():
     cv_scores[model_name] = scores
     print(f"{model_name} cross-validation accuracy: {np.mean(scores):.2f}")
     print("-"*70)
+    
+
+#Using Random Forest
+rfc = RandomForestClassifier(random_state=42)
+rfc.fit(X_train_smote , y_train_smote)
+
+
+# Model Evaluation
+y_test_pred = rfc.predict(X_test)
+
+print("Accuracy Score:\n", accuracy_score(y_test, y_test_pred))
+print("Confsuion Matrix:\n", confusion_matrix(y_test, y_test_pred))
+print("Classification Report:\n", classification_report(y_test, y_test_pred))
