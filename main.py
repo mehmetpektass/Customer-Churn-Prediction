@@ -69,3 +69,10 @@ def plot_boxplot(df, column_name):
 plot_boxplot(df, "tenure") 
 plot_boxplot(df, "MonthlyCharges")   
 plot_boxplot(df, "TotalCharges")
+
+
+#Correlation matrix - heatmap
+plt.figure(figsize=(8,4))
+sns.heatmap(df[["tenure", "MonthlyCharges", "TotalCharges"]].corr(), annot=True, cmap="coolwarm", fmt=".2f")
+plt.title("Correlation Heatmap")
+plt.show()
