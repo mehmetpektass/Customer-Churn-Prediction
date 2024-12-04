@@ -35,6 +35,26 @@ df[df["TotalCharges"] == " "]
 
 #Converting object to float for total charges
 df["TotalCharges"] = df["TotalCharges"].replace({" " : "0.0"})
-
 df["TotalCharges"] = df["TotalCharges"].astype(float)
 
+#Checking the class distribution of target column
+
+df.describe()
+
+def plot_histogram(df, column_name):
+    plt.figure(figsize=(5,4))
+    sns.histplot(df[column_name] , kde=True)
+    plt.title(f"Distribution of {column_name}")
+    
+    col_mean = df[column_name].mean()
+    col_median = df[column_name].median()
+    
+    plt.axvline(col_mean , color="red" , linestyle="--" , label="Mean")
+    plt.axvline(col_median , color="blue" , linestyle="-" , label="Median")
+    
+    plt.legend()
+    plt.show()
+    
+
+plot_histogram(df, "tenure")
+plot_histogram(df, "TotalCharges")
