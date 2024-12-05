@@ -56,7 +56,9 @@ pip install -r requirements.txt
 ```
 ### Add Dataset
 
-Place the WA_Fn-UseC_-Telco-Customer-Churn.csv file in the project root directory.
+* Place the WA_Fn-UseC_-Telco-Customer-Churn.csv file in the project root directory.
+
+* You can find the dataset here: https://www.kaggle.com/datasets/blastchar/telco-customer-churn
 
 <br>
 
